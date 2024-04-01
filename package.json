@@ -1,0 +1,40 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "author": {
+    "name": "UMarket",
+    "url": "https://github.com/Shaunak2003/326-web-project"
+  },
+  "contributors": [
+    "Shaunak Karmarkar, skarmarkar@umass.edu, Shaunak2003",
+    "Shaunak Pandya, spandya@umass.edu, ",
+    "Rudraksh Sharma, rsharma@umass.edu, Rudraksh22",
+    "Arnav Kankaria, akankaria@umass.edu, "
+  ],
+  "scripts": {
+    "dev": "",
+    "test": ""
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
