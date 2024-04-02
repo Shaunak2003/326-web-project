@@ -83,9 +83,9 @@ body {
 }
 
 /* hide paragraphs for js */
-main p {
+/* main p {
     display: none;
-}
+} */
 
 main p.expanded {
     display: block;
