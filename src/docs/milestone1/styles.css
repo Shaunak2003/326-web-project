@@ -1,0 +1,96 @@
+
+/* Nav Bar*/
+nav {
+    background-color: #f2f2f2; 
+    padding: 10px; 
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline; 
+    margin-right: 20px; 
+  }
+  
+  nav ul li a {
+    text-decoration: none; 
+    color: #444444; 
+    font-weight: normal; 
+  }
+  
+  nav ul li a:hover {
+    color: blue; 
+  }
+
+/* h1 */
+h1 {
+    font-family: Helvetica, Arial, sans-serif; 
+    font-size: xx-large; 
+    color: black; 
+    text-align: center; 
+    margin-top: 50px; 
+    margin-bottom: 50px; 
+}
+
+/* team */
+#team {
+    background-color: #f9f9f9; 
+    padding: 50px; 
+  }
+
+  #team h2 {
+    color: #333; 
+    text-align: center; 
+  }
+  
+  /* team members */
+  .team-member {
+    margin-bottom: 20px; 
+  }
+  
+  /* team member names */
+  .team-member h3 {
+    color: #555; 
+  }
+
+  /* h2 */
+  h2 {
+    font-size: large;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.5; 
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+/* p */
+p {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
+}
+
+body {
+    margin: 20px; 
+}
+
+/* hide paragraphs for js */
+main p {
+    display: none;
+}
+
+main p.expanded {
+    display: block;
+}
+
+main h2 {
+    text-decoration: underline;
+}
+
+
+
+    
+   
+
