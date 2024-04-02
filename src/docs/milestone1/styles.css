@@ -40,6 +40,11 @@ h1 {
 #team {
     background-color: #f9f9f9; 
     padding: 50px; 
+    display: flex;
+    /* grid-template-columns: auto auto;
+    grid-template-rows: auto auto; */
+    justify-content: space-between;
+    margin-right: 100px;
   }
 
   #team h2 {
@@ -64,6 +69,7 @@ h1 {
     line-height: 1.5; 
     margin-top: 20px; 
     margin-bottom: 20px;
+    text-align: center;
 }
 
 /* p */
