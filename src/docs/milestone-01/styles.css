@@ -83,17 +83,20 @@ body {
 }
 
 /* hide paragraphs for js */
-/* main p {
-    display: none;
-} */
-
-main p.expanded {
-    display: block;
+main section .content-container {
+  display: none;
 }
 
-main h2 {
-    text-decoration: underline;
+main section .content-container.expanded {
+  display: block;
 }
+
+main section h2:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 
 
 
