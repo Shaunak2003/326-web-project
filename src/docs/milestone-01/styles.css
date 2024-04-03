@@ -96,6 +96,11 @@ main section h2:hover{
   text-decoration: underline;
 }
 
+/* img size*/
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 
 
