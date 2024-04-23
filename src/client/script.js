@@ -32,7 +32,12 @@ function saveItem() {
         document.getElementById('itemDescription').value = '';
         document.getElementById('itemPrice').value = '';
         document.getElementById('itemCondition').value = '';
-        document.getElementById('itemImage').value = ''
+        document.getElementById('itemImage').value = '';
+
+        // Hide the image preview
+        var preview = document.getElementById('imagePreview');
+        preview.src = '#'; // Reset the image source
+        preview.style.display = 'none'; // Hide the image preview
     })
     .catch(function (err) {
         console.log(err);
@@ -45,5 +50,16 @@ function saveItem() {
     .catch(function (err) {
         console.log(err);
     });
-    db.destroy()
+}
+
+function previewImage(event) {
+    var input = event.target;
+    var reader = new FileReader();
+    reader.onload = function(){
+        var dataURL = reader.result;
+        var preview = document.getElementById('imagePreview');
+        preview.src = dataURL;
+        preview.style.display = 'block'; // Show the image preview
+    };
+    reader.readAsDataURL(input.files[0]);
 }
