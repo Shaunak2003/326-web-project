@@ -38,8 +38,9 @@
             </select>
         </div>
         <div class="input-group">
-            <input type="file" id="itemImage" accept="image/*">
+            <input type="file" id="itemImage" accept="image/*" onchange="previewImage(event)">
         </div>
+        <img id="imagePreview" src="#" alt="Preview" style="max-width: 100%; display: none;">
         <button type="button" onclick="saveItem()">Add item</button>
     </form>
 </div>
