@@ -68,19 +68,14 @@ body {
 }
 
 .login-logo img {
-    height: 50px;
+    height: 100px;
     margin-bottom: 10px;
 }
 
 .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 50px;
-}
-
-.input-group label {
-    display: table-column;
-    margin-bottom: 5px;
+    /* display: flex;
+    flex-direction: column; */
+    margin-bottom: 100px;
 }
 
 .input-group input {
@@ -88,6 +83,7 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 3px;
+    margin-bottom: 10px;
 }
 
 .login-button {
