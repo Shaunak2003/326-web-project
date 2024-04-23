@@ -56,4 +56,69 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Additions for category and condition dropdowns */
+
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Styling for upload image button */
+
+.input-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+/* Custom styling for dropdowns */
+
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    appearance: none; /* Remove default appearance */
+    background-color: #fff; /* Dropdown background color */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px"><path d="M7 10l5 5 5-5z"/></svg>'); /* Dropdown arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+
+/* Hover and focus styles for dropdowns */
+
+.input-group select:hover,
+.input-group select:focus {
+    border-color: #007bff; /* Border color on hover/focus */
+}
+
+/* Styling for options within dropdown */
+
+.input-group select option {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Styling for the upload image button */
+
+.input-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
 

@@ -12,20 +12,35 @@
         <a href="index.html"><img src="images/UMarket.png" alt="UMarket Logo" width="250px"></a>
     </div>
     <h3>Add item</h3>
-    <form id="bookForm" action="#" method="post">
+    <form id="itemForm" action="#" method="post">
         <div class="input-group">
-            <input type="text" id="bookName" placeholder="Book Name">
+            <input type="text" id="itemName" placeholder="Item Name">
         </div>
         <div class="input-group">
-            <input type="text" id="bookDescription" placeholder="Description">
+            <input type="text" id="itemDescription" placeholder="Description">
         </div>
         <div class="input-group">
-            <input type="number" id="bookPrice" placeholder="Price">
+            <input type="number" id="itemPrice" placeholder="Price">
         </div>
         <div class="input-group">
-            <input type="text" id="bookCondition" placeholder="Condition">
+            <select id="itemCategory">
+                <option value="" disabled selected>Choose category</option>
+                <option value="books">Books</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+            </select>
         </div>
-        <button type="button" onclick="saveBook()">Add item</button>
+        <div class="input-group">
+            <select id="itemCondition">
+                <option value="" disabled selected>Choose condition</option>
+                <option value="new">New</option>
+                <option value="used">Used</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <input type="file" id="itemImage" accept="image/*">
+        </div>
+        <button type="button" onclick="saveItem()">Add item</button>
     </form>
 </div>
 <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
