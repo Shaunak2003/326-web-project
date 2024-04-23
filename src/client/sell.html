@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Looking to sell!</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-logo">
+        <a href="index.html"><img src="images/UMarket.png" alt="UMarket Logo" width="100px"></a>
+    </div>
+    <h3>Add item</h3>
+    <form id="bookForm" action="#" method="post">
+        <div class="input-group">
+            <input type="text" id="bookName" placeholder="Book Name">
+        </div>
+        <div class="input-group">
+            <input type="text" id="bookDescription" placeholder="Description">
+        </div>
+        <div class="input-group">
+            <input type="number" id="bookPrice" placeholder="Price">
+        </div>
+        <div class="input-group">
+            <input type="text" id="bookCondition" placeholder="Condition">
+        </div>
+        <button type="button" onclick="saveBook()">Create Account</button>
+    </form>
+</div>
+<script src="pouchdb.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
