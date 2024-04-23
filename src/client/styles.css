@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    
 }
 
 .top-nav {
@@ -72,12 +73,13 @@ body {
 }
 
 .input-group {
-    margin-bottom: 15px;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
 }
 
 .input-group label {
-    display: block;
+    display: table-column;
     margin-bottom: 5px;
 }
 
@@ -96,11 +98,4 @@ body {
     background-color: #0065E0;
     color: white;
     cursor: pointer;
-}
-
-.login-logo {
-    color: #fff;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
 }
