@@ -9,18 +9,26 @@ function saveBook() {
     var bookCondition = document.getElementById('bookCondition').value;
 
     // Create a book object
-    var book = {
+    /* var book = {
+        "_id": "001",
         "name": bookName,
         "description": bookDescription,
         "price": bookPrice,
         "condition": bookCondition
     };
-    console.log(book)
+    console.log(book) */
 
     // Add the book object to the PouchDB database
-    db.post(book)
+    db.put({
+      "_id": "001",
+      "name": bookName,
+      "description": bookDescription,
+      "price": bookPrice,
+      "condition": bookCondition
+    })
         .then(function (response) {
-            console.log('Book added successfully!');
+            console.log('Item added successfully!');
+            alert("Item added successfully")
             // Clear the form fields after successful submission
             document.getElementById('bookName').value = '';
             document.getElementById('bookDescription').value = '';
@@ -30,13 +38,15 @@ function saveBook() {
         .catch(function (err) {
             console.log(err);
         });
+
+      db.get('001').then( (book) => console.log(book))
 }
 
-db.allDocs({include_docs: true})
+/* db.allDocs({include_docs: true})
   .then(function (result) {
     // Log the documents to the console
     console.log(result.rows.map(row => row.doc));
   })
   .catch(function (err) {
     console.log(err);
-  });
+  }); */
