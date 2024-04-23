@@ -1,8 +1,11 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    
+    margin: 0;
+    padding: 0;
 }
 
+/* Header Styles */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -22,7 +25,8 @@ body {
     margin: 0 15px;
     text-decoration: none;
     color: #000;
-    font-size: 25px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .logo {
@@ -33,65 +37,57 @@ body {
 }
 
 .search-bar input[type="text"] {
-    padding: 100x;
+    padding: 10px;
     margin-right: 10px;
     font-size: 15px;
     height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .search-bar button {
-    padding: 13px;
+    padding: 10px 20px;
     background-color: #fb641b;
     border: none;
     color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .nav-links a {
     color: #fff;
     text-decoration: none;
     margin-left: 10px;
+    font-size: 18px;
 }
 
+/* Main Content Styles */
 .banner, .deals {
     margin: 20px;
 }
-.nav-links{
-    font-size: 25px;
-}
-.login-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    width: 300px;
-}
 
-.login-logo img {
-    height: 100px;
-    margin-bottom: 10px;
-}
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .main-nav a {
+        font-size: 14px;
+    }
 
-.input-group {
-    /* display: flex;
-    flex-direction: column; */
-    margin-bottom: 100px;
-}
+    .logo {
+        font-size: 20px;
+    }
 
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    margin-bottom: 10px;
-}
+    .search-bar input[type="text"] {
+        font-size: 14px;
+        height: 35px;
+    }
 
-.login-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    background-color: #0065E0;
-    color: white;
-    cursor: pointer;
+    .search-bar button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
 }
