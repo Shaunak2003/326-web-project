@@ -1,11 +1,59 @@
-/* body{
-    background-color: red;
-} */
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
+body {
+    font-family: Arial, sans-serif;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #881c1c;
+    padding: 10px;
+}
+
+.main-nav {
+    background-color: #f1f3f6;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-nav a {
+    margin: 0 15px;
     text-decoration: none;
+    color: #000;
+    font-size: 25px;
+}
+
+.logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar input[type="text"] {
+    padding: 100x;
+    margin-right: 10px;
+    font-size: 15px;
+    height: 40px;
+}
+
+.search-bar button {
+    padding: 13px;
+    background-color: #fb641b;
+    border: none;
+    color: white;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.banner, .deals {
+    margin: 20px;
+}
+.nav-links{
+    font-size: 25px;
 }
