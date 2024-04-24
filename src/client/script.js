@@ -1,11 +1,24 @@
 var db = new PouchDB('items');
-var idCount = 0;
+var idCount = 0
+console.log("id count before reload", idCount)
+// run a function that initializes/syncs with localsotrsge
+
+/* function syncWithLocalStorage() {
+  // Replicate data from PouchDB to local storage
+  return db.replicate.to(new PouchDB('itemsLocalStorage'))
+      .on('complete', function () {
+          console.log('Replication completed successfully');
+      })
+      .on('error', function (err) {
+          console.log('Error replicating data:', err);
+      });
+} */
 
 // Function to save an item to the database
   function saveItem() {
       // Get user input
       idCount++;
-      console.log(idCount);
+      console.log("id count after save item", idCount);
 
       var itemName = document.getElementById('itemName').value;
       var itemCategory = document.getElementById('itemCategory').value
@@ -50,6 +63,8 @@ var idCount = 0;
       .catch(function (err) {
           console.log(err);
       });
+
+      
       //db.destroy()
 }
 
@@ -74,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
             include_docs: true,
             attachments: true
         }).then(function (result) {
-            var books = result.rows.filter(function (row) {
+            var items = result.rows.filter(function (row) {
               lowerCaseCategory = category.toLowerCase() //this is just for the products.html to display the 
               //category of the product with the first letter capitalized
                 return row.doc.category === `${lowerCaseCategory}`;
@@ -86,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var productsContainer = document.getElementById('products-container');
             productsContainer.innerHTML = '';
 
-            books.forEach(function (row) {
+            items.forEach(function (row) {
                 var product = row.doc;
                 var productHTML = `
                     <div class="product">
@@ -114,3 +129,43 @@ document.addEventListener('DOMContentLoaded', function () {
         displayItems(category);
     }
 });
+
+var temp = document.getElementById('search-input').value
+console.log(temp)
+
+function searchItems(){
+    var searchParam = document.getElementById('search-input').value
+    console.log(searchParam)
+    db.allDocs({
+      include_docs: true,
+      attachments: true
+  }).then( (result) => {
+    var items = result.rows.filter(function (row) {
+      lowerCaseSearchParam = searchParam.toLowerCase() 
+        return row.doc.name === `${lowerCaseSearchParam}`;
+    });
+    var displayCategory = document.getElementById('display-category')
+    displayCategory.innerHTML = 'Items with similar names'
+
+    var productsContainer = document.getElementById('products-container');
+    productsContainer.innerHTML = '';
+
+    items.forEach(function (row) {
+      var product = row.doc;
+      var productHTML = `
+          <div class="product">
+              <img src="${product.image}" alt="${product.name}">
+              <h3>${product.name}</h3>
+              <p>Category: ${product.category}</p>
+              <p>Description: ${product.description}</p>
+              <p>Condition: ${product.condition}</p>
+              <p class="price">Price: $${product.price}</p>
+          </div>
+      `;
+      productsContainer.insertAdjacentHTML('beforeend', productHTML);
+  });
+
+  }).catch(function (err) {
+            console.log(err);
+        });
+  }
