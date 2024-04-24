@@ -1,18 +1,6 @@
 var db = new PouchDB('items');
 var idCount = 0;
 
-
-window.addEventListener('beforeunload', function (event) {
-  // Code to delete the database
-  db.destroy().then(function () {
-      console.log('Database deleted');
-  }).catch(function (err) {
-      console.log('Error deleting database:', err);
-  });
-});
-
-
-
 // Function to save an item to the database
   function saveItem() {
       // Get user input
