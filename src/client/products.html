@@ -5,7 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Page</title>
     <link rel="stylesheet" href="products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+<header>
+    <div class="top-nav">
+        <a href="index.html" class="logo"><img src="/images/UMarket.png" width="100px"></a>
+        <div class="search-bar">
+            <input type="text" placeholder="">
+            <button type="submit">Search</button>
+        </div>
+        <div class="nav-links">
+            <a href="login.html"><i class="fa fa-user" aria-hidden="true"></i></a>
+            <a href="#" class="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <a href="sell.html">Become a Seller</a>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <a href="products.html?category=Books">Books</a>
+        <a href="products.html?category=Electronics">Electronics</a>
+        <a href="products.html?category=Fashion">Fashion</a>
+    </nav>
+</header>
 <body>
     <div class="container">
         <h1 id="display-category"></h1>
