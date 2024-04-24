@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bookstore</title>
-  <style>
-    .book {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-
-    .book h2 {
-      margin-top: 0;
-    }
-
-    .book p {
-      margin-bottom: 5px;
-    }
-
-    .book .price {
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page</title>
+    <link rel="stylesheet" href="products.css">
 </head>
 <body>
-  <div id="bookstore"></div>
-  <script src="script.js"></script> <!-- Link to the MAIN JS file -->
+    <div class="container">
+        <h1>Books</h1>
+        <div id="products-container" class="products-container">
+            <!-- Product items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+    <script src="script.js"></script>
+    
 </body>
 </html>

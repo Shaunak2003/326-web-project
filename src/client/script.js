@@ -1,7 +1,7 @@
 var db = new PouchDB('items');
 var idCount = 0;
 
-// Function to save a item to the database
+// Function to save an item to the database
 function saveItem() {
     // Get user input
     idCount++;
@@ -64,58 +64,41 @@ function previewImage(event) {
     reader.readAsDataURL(input.files[0]);
 }
 
-// Define a Mango query selector
-var selector = {
-    "selector": {
-        "category": "books"
+document.addEventListener('DOMContentLoaded', function () {
+    var db = new PouchDB('items');
+
+    // Function to display items with the category "books"
+    function displayBooks() {
+        db.allDocs({
+            include_docs: true,
+            attachments: true
+        }).then(function (result) {
+            var books = result.rows.filter(function (row) {
+                return row.doc.category === 'books';
+            });
+
+            var productsContainer = document.getElementById('products-container');
+            productsContainer.innerHTML = '';
+
+            books.forEach(function (row) {
+                var product = row.doc;
+                var productHTML = `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>Category: ${product.category}</p>
+                        <p>Description: ${product.description}</p>
+                        <p>Condition: ${product.condition}</p>
+                        <p class="price">Price: $${product.price}</p>
+                    </div>
+                `;
+                productsContainer.insertAdjacentHTML('beforeend', productHTML);
+            });
+        }).catch(function (err) {
+            console.log(err);
+        });
     }
-};
 
-// Use the Mango query selector with allDocs to retrieve documents with category "books"
-db.find(selector)
-    .then(function (result) {
-        // Map the documents to an array of objects
-        var booksArray = result.docs.map(function(doc) {
-            return {
-                id: doc._id,
-                category: doc.category,
-                name: doc.name,
-                description: doc.description,
-                price: doc.price,
-                condition: doc.condition,
-                image: doc.image
-            };
-        });
-
-        // Now booksArray contains the documents with category "books" as an array of objects
-        console.log("Books Array:", booksArray);
-
-        // Display books from booksArray
-        const bookstore = document.getElementById('bookstore');
-        booksArray.forEach(book => {
-            const bookDiv = document.createElement('div');
-            bookDiv.classList.add('book');
-
-            const name = document.createElement('h2');
-            name.textContent = book.name;
-            bookDiv.appendChild(name);
-
-            const description = document.createElement('p');
-            description.textContent = book.description;
-            bookDiv.appendChild(description);
-
-            const price = document.createElement('p');
-            price.classList.add('price');
-            price.textContent = `Price: $${book.price}`;
-            bookDiv.appendChild(price);
-
-            const condition = document.createElement('p');
-            condition.textContent = `Condition: ${book.condition}`;
-            bookDiv.appendChild(condition);
-
-            bookstore.appendChild(bookDiv);
-        });
-    })
-    .catch(function (err) {
-        console.log(err);
-    });
+    // Call the displayBooks function to populate the products page with books
+    displayBooks();
+});
