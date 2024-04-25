@@ -159,15 +159,30 @@ fashionButton.addEventListener('click', (event) => {
   displayItems('Fashion')
 })
 searchButton.addEventListener('click', (event) => {
-  event.preventDefault()
-  const searchParamInput = document.getElementById('search-input').value
-  if (searchParamInput.trim() !== ''){
-    window.location.href = 'products.html?name=' + encodeURIComponent(searchParamInput)
-  }
-  var search = new URLSearchParams(window.location.search)
-  var searchParam = search.get('name')
-  searchItems(searchParam)
-})
+    event.preventDefault();
+    const searchParamInput = document.getElementById('search-input').value.trim();
+    if (searchParamInput !== '') {
+        // Update the URL with the search query
+        window.location.href = 'products.html?name=' + encodeURIComponent(searchParamInput);
+    } else {
+        // If search input is empty, just display all items
+        displayAllItems();
+    }
+});
+
+// Function to be called when the page loads to handle search parameters in the URL
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get('name');
+    if (searchParam) {
+        // If there's a search parameter in the URL, perform the search
+        searchItems(searchParam);
+    } else {
+        // If no search parameter, display all items
+        displayAllItems();
+    }
+});
+
 
 function buyProduct(productID, productRev, productName){
   db.remove(productID, productRev)
