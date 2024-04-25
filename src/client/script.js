@@ -47,12 +47,12 @@ const exploreButton = document.getElementById('explore-products-button')
       });
 
       // Retrieve and log the item
-      /* db.get(`${idCount}`).then( (item) => {
+       db.get(`${idCount}`).then( (item) => {
           console.log(item);
       })
       .catch(function (err) {
           console.log(err);
-      }); */
+      }); 
 
       
       //db.destroy()
@@ -95,6 +95,7 @@ function searchItems(searchParam){
               <p>Description: ${product.description}</p>
               <p>Condition: ${product.condition}</p>
               <p class="price">Price: $${product.price}</p>
+              <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
           </div>
       `;
       productsContainer.insertAdjacentHTML('beforeend', productHTML);
@@ -168,8 +169,10 @@ searchButton.addEventListener('click', (event) => {
   searchItems(searchParam)
 })
 
-function buyProduct(productID){
-    window.location.href = "index.html";
+function buyProduct(productID, productRev, productName){
+  db.remove(productID, productRev)
+  alert("Bought item " + productName + "!")
+  window.location.href = "index.html";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -203,7 +206,7 @@ function displayAllItems() {
                     <p>Description: ${product.description}</p>
                     <p>Condition: ${product.condition}</p>
                     <p class="price">Price: $${product.price}</p>
-                    <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
+                    <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
                 </div>
             `;
             productsContainer.insertAdjacentHTML('beforeend', productHTML);
