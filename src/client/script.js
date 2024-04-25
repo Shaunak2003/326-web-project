@@ -129,6 +129,7 @@ function searchItems(searchParam){
         });
   }
 
+  // Function to display items based on category selected
   function displayItems(category) {
     db.allDocs({
         include_docs: true,
@@ -140,12 +141,15 @@ function searchItems(searchParam){
             return row.doc.category === `${lowerCaseCategory}`;
         });
 
+        // Update the category display at the top of the products container
         var displayCategory = document.getElementById('display-category')
         displayCategory.innerHTML = 'All ' + category
 
+        // Clear previous entries in the products container
         var productsContainer = document.getElementById('products-container');
         productsContainer.innerHTML = '';
 
+        // Append each found item's details to the products container
         items.forEach(function (row) {
             var product = row.doc;
             var productHTML = `
@@ -166,6 +170,7 @@ function searchItems(searchParam){
     });
 }
 
+// Event listeners for category buttons
 bookButton.addEventListener('click', (event) => {
   event.preventDefault()
   document.getElementById('search-input').value = ''
@@ -206,11 +211,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
+// Function to handle the purchase of a product
 function buyProduct(productID, productRev, productName){
+    // Remove the item from the database once bought
   db.remove(productID, productRev)
   alert("Bought item " + productName + "!")
-  window.location.href = "index.html";
+  window.location.href = "index.html"; // Redirect to homepage after purchase
 }
 
 document.addEventListener('DOMContentLoaded', function() {
