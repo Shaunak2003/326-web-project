@@ -5,32 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UMarket - Online Shopping</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- External CSS file for styling -->
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
+    <!-- Top navigation bar -->
     <div class="top-nav">
+        <!-- Logo that links back to the homepage -->
         <a href="index.html" class="logo"><img src="images/UMarket.png" width="100px"></a>
-       <!--  <div class="search-bar">
-            <input type="text" placeholder=""  id="search-input">
-            <a href="products.html"><button type="submit" id="button-input">Search</button></a>
-        </div> -->
+        <!-- Introductory paragraph providing context about the website -->
         <div class="intro-para">
             <p>The easy to use e-commerce site for UMass students!!</p>
             <p>Buy what you need, sell what you don't!!</p>
             <p>It's living made easier!!</p>
         </div>
+        <!-- Navigation links for user login, cart, and becoming a seller -->
         <div class="nav-links">
             <a href="login.html"><i class="fa fa-user" aria-hidden="true"></i></a>
             <a href="#" class="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
             <a href="sell.html">Become a Seller</a>
         </div>
     </div>
-    <!-- <nav class="main-nav">
-        <a href="products.html?category=Books"><button type="submit" id="book-button">Books</button></a>
-        <a href="products.html?category=Electronics"><button type="submit" id="electronics-button">Electronics</button></a>
-        <a href="products.html?category=Fashion"><button type="submit" id="fashion-button">Fashion</button></a>
-    </nav> -->
+    <!-- Main navigation for exploring products -->
     <nav class="main-nav">
         <a href="products.html?all=true"><button id="explore-products-button">Explore our products<i class="fa fa-arrow-right" aria-hidden="true"></i></button></a>
         <!-- More navigation items -->
@@ -38,7 +35,9 @@
 </header>
 
 <main>
+    <!-- Container for category sections -->
     <div class="category-container">
+        <!-- Individual category block for Books -->
         <div class="category">
             <img src="images/Books.jpeg" alt="Books">
             <div class="category-overlay">
@@ -46,6 +45,7 @@
                 <a href="products.html?category=books" class="explore-category-button">Explore <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
             </div>
         </div>
+        <!-- Individual category block for Electronics -->
         <div class="category">
             <img src="images/Electronics.jpg" alt="Electronics">
             <div class="category-overlay">
@@ -53,6 +53,7 @@
                 <a href="products.html?category=electronics" class="explore-category-button">Explore <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
             </div>
         </div>
+        <!-- Individual category block for Fashion -->
         <div class="category">
             <img src="images/Fashion.jpg" alt="Fashion">
             <div class="category-overlay">
@@ -67,6 +68,7 @@
     <!-- Footer Content Here -->
 </footer>
 
+<!-- Script with defer attribute to ensure it loads after the HTML is parsed -->
 <script defer src="script.js"></script>
 </body>
 
