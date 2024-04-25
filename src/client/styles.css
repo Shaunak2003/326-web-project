@@ -123,5 +123,16 @@ body {
         width: 100%;
     }
 }
-
-
+.explore-products-button:hover {
+    background-color: #fff;
+    color: #333;
+}
+.explore-products-button {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}

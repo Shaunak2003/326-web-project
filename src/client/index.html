@@ -11,9 +11,14 @@
 <header>
     <div class="top-nav">
         <a href="index.html" class="logo"><img src="/images/UMarket.png" width="100px"></a>
-        <div class="search-bar">
+       <!--  <div class="search-bar">
             <input type="text" placeholder=""  id="search-input">
-            <a href="products.html"><button type="submit" id="button-input" onclick="searchItems()">Search</button></a>
+            <a href="products.html"><button type="submit" id="button-input">Search</button></a>
+        </div> -->
+        <div class="intro-para">
+            <p>The easy to use e-commerce site for UMass students!!</p>
+            <p>Buy what you need, sell what you don't!!</p>
+            <p>It's living made easier!!</p>
         </div>
         <div class="nav-links">
             <a href="login.html"><i class="fa fa-user" aria-hidden="true"></i></a>
@@ -21,10 +26,13 @@
             <a href="sell.html">Become a Seller</a>
         </div>
     </div>
+    <!-- <nav class="main-nav">
+        <a href="products.html?category=Books"><button type="submit" id="book-button">Books</button></a>
+        <a href="products.html?category=Electronics"><button type="submit" id="electronics-button">Electronics</button></a>
+        <a href="products.html?category=Fashion"><button type="submit" id="fashion-button">Fashion</button></a>
+    </nav> -->
     <nav class="main-nav">
-        <a href="products.html?category=Books">Books</a>
-        <a href="products.html?category=Electronics">Electronics</a>
-        <a href="products.html?category=Fashion">Fashion</a>
+        <a href="products.html"><button id="explore-products-button">Explore our products<i class="fa fa-arrow-right" aria-hidden="true"></i></button></a>
         <!-- More navigation items -->
     </nav>
 </header>
@@ -47,5 +55,5 @@
     <!-- Footer Content Here -->
 </footer>
 
-<script src="script.js"></script>
+<script defer src="script.js"></script>
 </body>
