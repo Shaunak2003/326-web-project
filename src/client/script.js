@@ -1,5 +1,7 @@
+// Initialize PouchDB database for storing items
 var db = new PouchDB('items');
 
+// Retrieve button elements for handling various functionalities
 const bookButton = document.getElementById('book-button')
 const electronicsButton = document.getElementById('electronics-button')
 const fashionButton = document.getElementById('fashion-button')
@@ -31,7 +33,7 @@ db.allDocs()
 // Function to save an item to the database
   function saveItem() {
       // Get user input
-      var idCount = Math.floor(Math.random() * 10000000000);
+      var idCount = Math.floor(Math.random() * 10000000000); // Generate a random ID for the new item
       var itemName = document.getElementById('itemName').value;
       var itemCategory = document.getElementById('itemCategory').value
       var itemDescription = document.getElementById('itemDescription').value;
@@ -50,8 +52,8 @@ db.allDocs()
           "image": itemImage
       })
       .then(function (response) {
-          //console.log('Item added successfully!');
           alert("Item added successfully");
+          // Clear form fields after submission
           document.getElementById('itemName').value = '';
           document.getElementById('itemCategory').value = ''
           document.getElementById('itemDescription').value = '';
@@ -75,11 +77,9 @@ db.allDocs()
       .catch(function (err) {
           console.log(err);
       }); 
-
-      
-      //db.destroy()
 }
 
+// Function to display an image preview when a file is selected
 function previewImage(event) {
     var input = event.target;
     var reader = new FileReader();
@@ -92,6 +92,7 @@ function previewImage(event) {
     reader.readAsDataURL(input.files[0]);
 }
 
+// Function to perform a search based on the input from the search bar
 function searchItems(searchParam){
   console.log(searchParam)
     db.allDocs({
@@ -222,17 +223,22 @@ document.addEventListener('DOMContentLoaded', function() {
         displayItems(category);
     }
 });
+
+// Display all items in the database
 function displayAllItems() {
     db.allDocs({
         include_docs: true,
         attachments: true
     }).then(function (result) {
-        var displayCategory = document.getElementById('display-category');
-        displayCategory.innerHTML = 'All Products';
+        
+
+        var displayCategory = document.getElementById('display-category'); 
+        displayCategory.innerHTML = 'All Products'; // Update display category
 
         var productsContainer = document.getElementById('products-container');
         productsContainer.innerHTML = '';
 
+        // Populate the products container with all available products
         result.rows.forEach(function (row) {
             var product = row.doc;
             var productHTML = `
