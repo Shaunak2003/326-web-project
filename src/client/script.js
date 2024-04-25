@@ -4,6 +4,7 @@ const bookButton = document.getElementById('book-button')
 const electronicsButton = document.getElementById('electronics-button')
 const fashionButton = document.getElementById('fashion-button')
 const searchButton = document.getElementById('button-input')
+const exploreButton = document.getElementById('explore-products-button')
 
 // Function to save an item to the database
   function saveItem() {
@@ -131,6 +132,7 @@ function searchItems(searchParam){
                     <p>Description: ${product.description}</p>
                     <p>Condition: ${product.condition}</p>
                     <p class="price">Price: $${product.price}</p>
+                    <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
                 </div>
             `;
             productsContainer.insertAdjacentHTML('beforeend', productHTML);
@@ -165,3 +167,48 @@ searchButton.addEventListener('click', (event) => {
   var searchParam = search.get('name')
   searchItems(searchParam)
 })
+
+function buyProduct(productID){
+    window.location.href = "index.html";
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const allProducts = params.get('all');
+    const category = params.get('category');
+    if (allProducts) {
+        displayAllItems();
+    } else if (category) {
+        displayItems(category);
+    }
+});
+function displayAllItems() {
+    db.allDocs({
+        include_docs: true,
+        attachments: true
+    }).then(function (result) {
+        var displayCategory = document.getElementById('display-category');
+        displayCategory.innerHTML = 'All Products';
+
+        var productsContainer = document.getElementById('products-container');
+        productsContainer.innerHTML = '';
+
+        result.rows.forEach(function (row) {
+            var product = row.doc;
+            var productHTML = `
+                <div class="product">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Category: ${product.category}</p>
+                    <p>Description: ${product.description}</p>
+                    <p>Condition: ${product.condition}</p>
+                    <p class="price">Price: $${product.price}</p>
+                    <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
+                </div>
+            `;
+            productsContainer.insertAdjacentHTML('beforeend', productHTML);
+        });
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
