@@ -4,26 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UMarket Sign Up</title>
+<!-- External CSS for styling the signup form similar to the login form -->
 <link rel="stylesheet" href="login.css">
 </head>
 <body>
+<!-- Container for the signup form -->
 <div class="login-container">
+    <!-- Logo linking back to the homepage for easy navigation -->
     <div class="login-logo">
         <a href="index.html"><img src="images/UMarket.png" alt="UMarket Logo" width="250px"></a>
     </div>
+    <!-- Heading indicating that this form is for signing up a new user -->
     <h3>Sign Up</h3>
+    <!-- Form for signup, should specify the server-side endpoint in the action attribute when backend is setup -->
     <form action="#" method="post">
+        <!-- Input group for email address -->
         <div class="input-group">
             <input type="email" id="email" placeholder="Email">
         </div>
+        <!-- Input group for password -->
         <div class="input-group">
             <input type="password" id="password" placeholder="Password">
         </div>
+        <!-- Button to submit the form, should ideally have event handlers setup via JavaScript -->
         <button type="button" class="create-account-button" id="createAccount">Create Account</button>
         <!-- After create account is clicked, user should go back to sign in page, where identity is verified -->
     </form>
 </div>
+<!-- Including PouchDB for potential local database operations -->
 <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+<!-- JavaScript that handles account creation logic -->
 <script src="accounts.js"></script>
 </body>
 </html>

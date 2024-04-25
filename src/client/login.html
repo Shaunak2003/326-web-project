@@ -2,24 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Ensures proper rendering and touch zooming -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UMarket Sign In</title>
+<!-- Link to external CSS for styling the login page -->
 <link rel="stylesheet" href="login.css">
 </head>
 <body>
+<!-- Container for the login form -->
 <div class="login-container">
+    <!-- Logo for the UMarket, clickable and redirects to the homepage -->
     <div class="login-logo">
         <a href="index.html"><img src="images/UMarket.png" alt="UMarket Logo" width="250px"></a>
     </div>
+    <!-- Header indicating this is a sign-in page -->
     <h3>Sign In</h3>
+    <!-- Login form setup -->
     <form action="#" method="post">
+        <!-- Grouping for input elements makes styling easier -->
         <div class="input-group">
             <input type="email" id = "email" placeholder="Email">
         </div>
         <div class="input-group">
             <input type="password" id = "password" placeholder="Password">
         </div>
+        <!-- Submission button for the form -->
         <button type="submit" class="login-button" id = "login">Continue</button>
+        <!-- Link to create a new account if the user doesn't have one -->
         <div>
             <a href="signup.html">
                 <button type="button" class="create-account-button">Create Account</button>
@@ -27,7 +36,9 @@
         </div>
     </form>
 </div>
+<!-- Include PouchDB for possible use in the account management scripts -->
 <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+<!-- Script handling the accounts operations such as login verification -->
 <script src="accounts.js"></script>
 </body>
 </html>

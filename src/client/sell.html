@@ -2,26 +2,36 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Ensures the website displays well on devices with different screen sizes -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Looking to sell!</title>
+<!-- Link to the CSS file specific to the selling page -->
 <link rel="stylesheet" href="sell.css">
 </head>
 <body>
+ <!-- Container for the form used to submit new items for sale -->
 <div class="login-container">
+    <!-- Logo linking back to the home page -->
     <div class="login-logo">
         <a href="index.html"><img src="images/UMarket.png" alt="UMarket Logo" width="250px"></a>
     </div>
+    <!-- Heading indicating the purpose of the form -->
     <h3>Add item</h3>
+    <!-- Form for entering item details. Action is set to "#" which should be updated to a server endpoint or handled by JavaScript -->
     <form id="itemForm" action="#" method="post">
+        <!-- Input for the item's name -->
         <div class="input-group">
             <input type="text" id="itemName" placeholder="Item Name">
         </div>
+        <!-- Input for the item's description -->
         <div class="input-group">
             <input type="text" id="itemDescription" placeholder="Description">
         </div>
+        <!-- Input for the item's price -->
         <div class="input-group">
             <input type="number" id="itemPrice" placeholder="Price">
         </div>
+         <!-- Dropdown for selecting the item's category -->
         <div class="input-group">
             <select id="itemCategory">
                 <option value="" disabled selected>Choose category</option>
@@ -30,6 +40,7 @@
                 <option value="fashion">Fashion</option>
             </select>
         </div>
+        <!-- Dropdown for selecting the item's condition -->
         <div class="input-group">
             <select id="itemCondition">
                 <option value="" disabled selected>Choose condition</option>
@@ -37,14 +48,19 @@
                 <option value="used">Used</option>
             </select>
         </div>
+        <!-- File input for uploading an item image -->
         <div class="input-group">
             <input type="file" id="itemImage" accept="image/*" onchange="previewImage(event)">
         </div>
+        <!-- Image preview area, initially hidden -->
         <img id="imagePreview" src="#" alt="Preview" style="max-width: 100%; display: none;">
+        <!-- Button to submit the form, triggering JavaScript function to handle the addition -->
         <button type="button" onclick="saveItem()">Add item</button>
     </form>
 </div>
+<!-- Including PouchDB for local database interactions -->
 <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+<!-- Including the JavaScript file that handles the page's functionality -->
 <script src="script.js"></script>
 </body>
 </html>
