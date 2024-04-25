@@ -1,34 +1,47 @@
-{
-    "books": [
-      {
-        "name": "The Great Gatsby",
-        "description": "The story primarily concerns the young and mysterious millionaire Jay Gatsby and his quixotic passion and obsession with the beautiful former debutante Daisy Buchanan.",
-        "price": 12.99,
-        "condition": "New"
-      },
-      {
-        "name": "To Kill a Mockingbird",
-        "description": "The novel explores the irrationality of adult attitudes toward race and class in the Deep South of the 1930s.",
-        "price": 10.49,
-        "condition": "Used - Very Good"
-      },
-      {
-        "name": "1984",
-        "description": "A dystopian social science fiction novel and cautionary tale written by George Orwell.",
-        "price": 8.99,
-        "condition": "Used - Good"
-      },
-      {
-        "name": "The Catcher in the Rye",
-        "description": "A story of Holden Caulfield, a teenager from New York City, who is expelled from his high school and goes on an aimless journey.",
-        "price": 11.79,
-        "condition": "New"
-      },
-      {
-        "name": "Pride and Prejudice",
-        "description": "Follows the main character Elizabeth Bennet as she deals with issues of manners, upbringing, morality, education, and marriage in the society of the landed gentry of early 19th-century England.",
-        "price": 9.99,
-        "condition": "Used - Like New"
-      }
-    ]
+[
+  {
+    "_id": "1",
+    "category": "books",
+    "name": "The Great Gatsby",
+    "description": "A novel by F. Scott Fitzgerald",
+    "price": 10.99,
+    "condition": "New",
+    "image": "books/great_gatsby.jpg"
+  },
+  {
+    "_id": "2",
+    "category": "electronics",
+    "name": "Smartphone",
+    "description": "Brand new smartphone with the latest features",
+    "price": 599.99,
+    "condition": "New",
+    "image": "electronics/smartphone.jpg"
+  },
+  {
+    "_id": "3",
+    "category": "fashion",
+    "name": "Blue Jeans",
+    "description": "High-quality denim jeans for casual wear",
+    "price": 39.99,
+    "condition": "New",
+    "image": "fashion/blue_jeans.jpg"
+  },
+  {
+    "_id": "4",
+    "category": "books",
+    "name": "To Kill a Mockingbird",
+    "description": "A novel by Harper Lee",
+    "price": 12.99,
+    "condition": "New",
+    "image": "books/to_kill_a_mockingbird.jpg"
+  },
+  {
+    "_id": "5",
+    "category": "electronics",
+    "name": "Laptop",
+    "description": "Powerful laptop for work and entertainment",
+    "price": 899.99,
+    "condition": "New",
+    "image": "electronics/laptop.jpg"
   }
+]

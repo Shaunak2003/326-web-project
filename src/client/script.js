@@ -6,6 +6,28 @@ const fashionButton = document.getElementById('fashion-button')
 const searchButton = document.getElementById('button-input')
 const exploreButton = document.getElementById('explore-products-button')
 
+// Check if products exist in the database
+db.allDocs()
+  .then(docs => {
+    if (docs.total_rows === 0) {
+      // Fetch products from JSON file and add them to the database
+      fetch('products.json')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(product => {
+            db.put(product)
+              .then(response => console.log("Product added:", response))
+              .catch(error => console.error("Error adding product:", error));
+          });
+        })
+        .catch(error => console.error("Error fetching products:", error));
+    } else {
+      console.log("Products already exist in the database. Skipping addition.");
+    }
+  })
+  .catch(error => console.error("Error querying database:", error));
+
+
 // Function to save an item to the database
   function saveItem() {
       // Get user input
