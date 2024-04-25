@@ -30,8 +30,9 @@ Contents:
 ----------------------
 To get the UMarket website running locally:
 a. Clone the repository to your local machine.
-b. Open the 'index.html' file in a modern web browser to start exploring the site.
-c. No additional local server setup is required as the site uses PouchDB for client-side data storage, simplifying deployment and testing.
+b. Run command npm run milestone-02
+c. Open the 'index.html' file in a modern web browser to start exploring the site.
+d. No additional local server setup is required as the site uses PouchDB for client-side data storage, simplifying deployment and testing.
 
 3. Documentation:
 -----------------
