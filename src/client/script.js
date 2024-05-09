@@ -131,45 +131,45 @@ const URL = "http://localhost:3000"
   } */
 
   // Function to display items based on category selected
-  function displayItems(category) {
-    db.allDocs({
-        include_docs: true,
-        attachments: true
-    }).then(function (result) {
-        var items = result.rows.filter(function (row) {
-          lowerCaseCategory = category.toLowerCase() //this is just for the products.html to display the 
-          //category of the product with the first letter capitalized
-            return row.doc.category === `${lowerCaseCategory}`;
-        });
+//   function displayItems(category) {
+//     db.allDocs({
+//         include_docs: true,
+//         attachments: true
+//     }).then(function (result) {
+//         var items = result.rows.filter(function (row) {
+//           lowerCaseCategory = category.toLowerCase() //this is just for the products.html to display the 
+//           //category of the product with the first letter capitalized
+//             return row.doc.category === `${lowerCaseCategory}`;
+//         });
 
-        // Update the category display at the top of the products container
-        var displayCategory = document.getElementById('display-category')
-        displayCategory.innerHTML = 'All ' + category
+//         // Update the category display at the top of the products container
+//         var displayCategory = document.getElementById('display-category')
+//         displayCategory.innerHTML = 'All ' + category
 
-        // Clear previous entries in the products container
-        var productsContainer = document.getElementById('products-container');
-        productsContainer.innerHTML = '';
+//         // Clear previous entries in the products container
+//         var productsContainer = document.getElementById('products-container');
+//         productsContainer.innerHTML = '';
 
-        // Append each found item's details to the products container
-        items.forEach(function (row) {
-            var product = row.doc;
-            var productHTML = `
-                <div class="product">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>Category: ${product.category}</p>
-                    <p>Description: ${product.description}</p>
-                    <p>Condition: ${product.condition}</p>
-                    <p class="price">Price: $${product.price}</p>
-                    <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
-                </div>
-            `;
-            productsContainer.insertAdjacentHTML('beforeend', productHTML);
-        });
-    }).catch(function (err) {
-        console.log(err);
-    });
-}
+//         // Append each found item's details to the products container
+//         items.forEach(function (row) {
+//             var product = row.doc;
+//             var productHTML = `
+//                 <div class="product">
+//                     <img src="${product.image}" alt="${product.name}">
+//                     <h3>${product.name}</h3>
+//                     <p>Category: ${product.category}</p>
+//                     <p>Description: ${product.description}</p>
+//                     <p>Condition: ${product.condition}</p>
+//                     <p class="price">Price: $${product.price}</p>
+//                     <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
+//                 </div>
+//             `;
+//             productsContainer.insertAdjacentHTML('beforeend', productHTML);
+//         });
+//     }).catch(function (err) {
+//         console.log(err);
+//     });
+// }
 // Function to be called when the page loads to handle search parameters in the URL
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
