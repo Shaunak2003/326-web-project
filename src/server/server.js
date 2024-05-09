@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import logger from "morgan";
 import bodyParser from "body-parser";
 //import db from '../server/db.js';
@@ -19,6 +19,7 @@ async function saveItem(response, item){
         response.end()
     }
     catch (err){
+        console.log(err)
         response.writeHead(500, headerFields)
         response.end()
     }
@@ -36,6 +37,33 @@ async function displayAllItems(response){
         response.writeHead(500, headerFields);
         response.end(JSON.stringify({ error: "Internal Server Error" }));
     } 
+}
+
+async function buyProduct(response, productID, productRev){
+    try{
+        await db.removeItem(productID, productRev)
+        response.writeHead(200, headerFields)
+        response.end()
+    }
+    catch (err){
+        console.log(err)
+        response.writeHead(500, headerFields)
+        response.end()
+    }
+}
+
+async function displayItems(response, category){
+    try{
+        const results = await db.loadItems(category);
+        console.log("server.js - ", results);
+        response.setHeader("Content-Type", "application/json");
+        response.status(200).send(JSON.stringify(results))
+    }
+    catch (err){
+        console.error(err); 
+        response.writeHead(500, headerFields);
+        response.end(JSON.stringify({ error: "Internal Server Error" }));
+    }
 }
 
 const app = express();
@@ -57,10 +85,18 @@ const MethodNotAllowedHandler = async (request, response) => {
     saveItem(res, item)
   }).all(MethodNotAllowedHandler)
 
-
   app.route('/all').get(async (req, res) => {
-    const options = req.query
     displayAllItems(res)
+  }).all(MethodNotAllowedHandler)
+
+  app.route('/delete').delete(async (req, res) => {
+    const options = req.query
+    buyProduct(res, options.productID, options.productRev)
+  }).all(MethodNotAllowedHandler)
+
+  app.route('/read').get(async (req, res) => {
+    const options = req.query
+    displayItems(res, options.category.toLowerCase())
   }).all(MethodNotAllowedHandler)
 
   app.route("*").all(async (request, response) => {
