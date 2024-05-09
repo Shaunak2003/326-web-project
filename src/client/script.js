@@ -1,5 +1,4 @@
 // Initialize PouchDB database for storing items
-var db = new PouchDB('items');
 
 // Retrieve button elements for handling various functionalities
 const bookButton = document.getElementById('book-button')
@@ -7,9 +6,10 @@ const electronicsButton = document.getElementById('electronics-button')
 const fashionButton = document.getElementById('fashion-button')
 const searchButton = document.getElementById('button-input')
 const exploreButton = document.getElementById('explore-products-button')
+const URL = "http://localhost:3000"
 
 // Check if products exist in the database
-db.allDocs()
+/* db.allDocs()
   .then(docs => {
     if (docs.total_rows === 0) {
       // Fetch products from JSON file and add them to the database
@@ -27,11 +27,11 @@ db.allDocs()
       console.log("Products already exist in the database. Skipping addition.");
     }
   })
-  .catch(error => console.error("Error querying database:", error));
+  .catch(error => console.error("Error querying database:", error)); */
 
 
 // Function to save an item to the database
-  function saveItem() {
+ /*  function saveItem() {
       // Get user input
       var idCount = Math.floor(Math.random() * 10000000000); // Generate a random ID for the new item
       var itemName = document.getElementById('itemName').value;
@@ -42,15 +42,16 @@ db.allDocs()
       var itemImage = document.getElementById('itemImage').value
 
       // Add the item object to the PouchDB database
-      db.put({
-          "_id": `${idCount}`,
-          "category": itemCategory,
-          "name": itemName,
-          "description": itemDescription,
-          "price": itemPrice,
-          "condition": itemCondition,
-          "image": itemImage
-      })
+      var item = {
+        "_id": `${idCount}`,
+        "category": itemCategory,
+        "name": itemName,
+        "description": itemDescription,
+        "price": itemPrice,
+        "condition": itemCondition,
+        "image": itemImage
+    }
+      db.put(item)
       .then(function (response) {
           alert("Item added successfully");
           // Clear form fields after submission
@@ -77,10 +78,10 @@ db.allDocs()
       .catch(function (err) {
           console.log(err);
       }); 
-}
+} */
 
 // Function to display an image preview when a file is selected
-function previewImage(event) {
+/* function previewImage(event) {
     var input = event.target;
     var reader = new FileReader();
     reader.onload = function(){
@@ -90,10 +91,10 @@ function previewImage(event) {
         preview.style.display = 'block'; // Show the image preview
     };
     reader.readAsDataURL(input.files[0]);
-}
+} */
 
 // Function to perform a search based on the input from the search bar
-function searchItems(searchParam){
+/* function searchItems(searchParam){
   console.log(searchParam)
     db.allDocs({
       include_docs: true,
@@ -118,7 +119,7 @@ function searchItems(searchParam){
               <p>Description: ${product.description}</p>
               <p>Condition: ${product.condition}</p>
               <p class="price">Price: $${product.price}</p>
-              <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
+              <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
           </div>
       `;
       productsContainer.insertAdjacentHTML('beforeend', productHTML);
@@ -127,7 +128,7 @@ function searchItems(searchParam){
   }).catch(function (err) {
             console.log(err);
         });
-  }
+  } */
 
   // Function to display items based on category selected
   function displayItems(category) {
@@ -160,7 +161,7 @@ function searchItems(searchParam){
                     <p>Description: ${product.description}</p>
                     <p>Condition: ${product.condition}</p>
                     <p class="price">Price: $${product.price}</p>
-                    <button class="buy-button" onclick="buyProduct('${product._id}')">Buy</button>
+                    <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
                 </div>
             `;
             productsContainer.insertAdjacentHTML('beforeend', productHTML);
@@ -214,8 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to handle the purchase of a product
 function buyProduct(productID, productRev, productName){
     // Remove the item from the database once bought
-  db.remove(productID, productRev)
+  console.log(productName)
   alert("Bought item " + productName + "!")
+  db.remove(productID, productRev)
+  //alert("Bought item " + productName + "!")
   window.location.href = "index.html"; // Redirect to homepage after purchase
 }
 
@@ -231,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Display all items in the database
-function displayAllItems() {
+/* function displayAllItems() {
     db.allDocs({
         include_docs: true,
         attachments: true
@@ -263,4 +266,91 @@ function displayAllItems() {
     }).catch(function (err) {
         console.log(err);
     });
+} */
+
+async function saveItem(){
+    var idCount = Math.floor(Math.random() * 10000000000); // Generate a random ID for the new item
+    var itemName = document.getElementById('itemName').value;
+    var itemCategory = document.getElementById('itemCategory').value
+    var itemDescription = document.getElementById('itemDescription').value;
+    var itemPrice = parseFloat(document.getElementById('itemPrice').value);
+    var itemCondition = document.getElementById('itemCondition').value;
+    var itemImage = document.getElementById('itemImage').value 
+
+    var item = {
+        "_id": `${idCount}`,
+        "category": itemCategory,
+        "name": itemName,
+        "description": itemDescription,
+        "price": itemPrice,
+        "condition": itemCondition,
+        "image": itemImage
+    }
+    console.log("script.js - ",item)
+
+   /*  try{ */
+        const response = await fetch(`${URL}/create`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        });
+        
+        if (response.status === 200){
+            console.log("Item added successfully")
+            alert("Item added successfully");
+          // Clear form fields after submission
+          document.getElementById('itemName').value = '';
+          document.getElementById('itemCategory').value = ''
+          document.getElementById('itemDescription').value = '';
+          document.getElementById('itemPrice').value = '';
+          document.getElementById('itemCondition').value = '';
+          document.getElementById('itemImage').value = '';
+
+          // Hide the image preview
+          var preview = document.getElementById('imagePreview');
+          preview.src = '#'; // Reset the image source
+          preview.style.display = 'none'; // Hide the image preview
+        }
+        else{
+            throw new Error('Failed to save item');
+        }
+    }
+
+async function displayAllItems(){
+   try {
+       const response = await fetch(`${URL}/all`, { method: "GET" });
+       if (!response.ok) {
+           throw new Error('Network response was not ok');
+       }
+       const results = await response.json(); // Parse JSON body
+       console.log("script.js - ", results);
+       updateUI(results); // Call a function to handle the UI update
+   } catch (error) {
+       console.error('Failed to fetch:', error);
+       throw error;
+   }
+}
+
+    
+function updateUI(products) {
+   var displayCategory = document.getElementById('display-category'); 
+   displayCategory.innerHTML = 'All Products'; // Update display category
+   var productsContainer = document.getElementById('products-container');
+   productsContainer.innerHTML = '';
+   products.forEach((product) => {
+       var productHTML = `
+           <div class="product">
+               <img src="${product.image}" alt="${product.name}">
+               <h3>${product.name}</h3>
+               <p>Category: ${product.category}</p>
+               <p>Description: ${product.description}</p>
+               <p>Condition: ${product.condition}</p>
+               <p class="price">Price: $${product.price}</p>
+               <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
+           </div>
+       `;
+       productsContainer.insertAdjacentHTML('beforeend', productHTML);
+   });
 }
