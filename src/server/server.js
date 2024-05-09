@@ -66,6 +66,20 @@ async function displayItems(response, category){
     }
 }
 
+async function searchItems(response, searchParams){
+    try{
+        const results = await db.searchByName(searchParams);
+        console.log("server.js - ", results);
+        response.setHeader("Content-Type", "application/json");
+        response.status(200).send(JSON.stringify(results))
+    }
+    catch{
+        console.error(err); 
+        response.writeHead(500, headerFields);
+        response.end(JSON.stringify({ error: "Internal Server Error" }));
+    }
+}
+
 const app = express();
 const port = 3000;
 app.use(logger("dev"));
@@ -96,10 +110,11 @@ const MethodNotAllowedHandler = async (request, response) => {
 
   app.route('/read').get(async (req, res) => {
     const options = req.query
-    displayItems(res, options.category.toLowerCase())
+    if (options.category !== undefined) displayItems(res, options.category.toLowerCase())
+    else searchItems(res, options.searchParams.toLowerCase())
   }).all(MethodNotAllowedHandler)
 
-  app.route("*").all(async (request, response) => {
+   app.route("*").all(async (request, response) => {
     response.status(404).send(`Not found: ${request.path}`);
   });
   

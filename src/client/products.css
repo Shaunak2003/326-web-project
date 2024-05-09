@@ -139,5 +139,19 @@ h1 {
     cursor: pointer; /* Change cursor to pointer on hover */
 }
 
+/* All products Button */
+#all-button {
+    color: #000; /* Black text color */
+    padding: 10px 20px; /* Padding for better spacing */
+    text-decoration: none; /* Remove underline */
+    border: 2px solid #000; /* Black border */
+    border-radius: 5px; /* Rounded corners */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+    font-size: 16px; /* Font size */
+}
 
-
+#all-button:hover {
+    color: #fff; /* White text color on hover */
+    background-color: #000; /* Black background color on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}

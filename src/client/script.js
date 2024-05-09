@@ -304,6 +304,17 @@ async function displayItems(category){
 }
 
 
+async function searchItems(searchParams){
+    const response = await fetch(`${URL}/read?searchParams=${searchParams}`,{ method: "GET" });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const results = await response.json()
+    var displayCategory = document.getElementById('display-category'); 
+    displayCategory.innerHTML = 'All Items'; 
+    updateUI(results)
+}
+
 // Event listeners for category buttons
 bookButton.addEventListener('click', (event) => {
     event.preventDefault()

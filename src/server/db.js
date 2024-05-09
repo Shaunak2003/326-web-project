@@ -19,3 +19,8 @@ export async function loadItems(category){
     const result = await db.allDocs({ include_docs: true, attachments: true });
     return result.rows.map(row => row.doc).filter(item => item.category === category)
 }
+
+export async function searchByName(searchParams){
+    const result = await db.allDocs({ include_docs: true, attachments: true })
+    return result.rows.map(row => row.doc).filter(item => item.name.replaceAll(' ', '').toLowerCase().includes(searchParams))
+}
