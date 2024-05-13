@@ -1,7 +1,8 @@
-// Initialize PouchDB
-var db = new PouchDB('accounts');
+/* const loginButton = document.getElementById('login')
+const signUpButton = document.getElementById('createAccount') */
+//var db = new PouchDB('accounts')
+const URL = "http://localhost:3000"
 
-// Function to validate email format
 function validateEmail(email) {
     // Regular expression for validating email format
     var re = /\S+@\S+\.\S+/;
@@ -9,7 +10,7 @@ function validateEmail(email) {
 }
 
 // Function to handle sign up
-function signUp(email, password) {
+/* function signUp(email, password) {
     // Check if email is valid
     if (!validateEmail(email)) {
         alert('Please enter a valid email address');
@@ -38,14 +39,38 @@ function signUp(email, password) {
             console.log(err);
         }
     });
-}
+} */
 
-// Event listener for create account button
-document.querySelector('.create-account-button').addEventListener('click', function() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    signUp(email, password);
-});
+
+
+async function signUp(email, password){
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    const data = {email: email, password: password}
+    console.log(data)
+    const response = await fetch(`${URL}/signup`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    if (response.status === 409){
+        console.log("Account already exists, please sign in")
+        alert("Account already exists, please sign in")
+        window.location.href = 'login.html'
+    }
+    else if (response.status === 200){
+        console.log("Account created successfully!")
+        alert("Account created successfully")
+        window.location.href = 'login.html'
+    }
+    else{
+        throw new Error('Failed to save item');
+    }
+}
 
 // Function to handle login
 function login(email, password) {
@@ -67,9 +92,29 @@ function login(email, password) {
 }
 
 // Event listener for login form submission
+document.querySelector('.create-account-button').addEventListener('click', function() {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    signUp(email, password);
+});
+
 document.querySelector('.login-button').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent form submission
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     login(email, password);
 });
+
+/* loginButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    var email = document.getElementById('email').value
+    var password = document.getElementById('password').value
+    login(email, password)
+})
+
+signUpButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    var email = document.getElementById('email').value
+    var password = document.getElementById('password').value
+    signUp(email, password)
+}) */

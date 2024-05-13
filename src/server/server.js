@@ -10,7 +10,7 @@ const headerFields = { "Content-Type": "text/html" };
 async function saveItem(response, item){
     if (item === undefined){
         response.writeHead(400, headerFields);
-        response.write("Item not saved?//??");
+        response.write("Item not saved");
         response.end();
     }
     try{
@@ -80,6 +80,24 @@ async function searchItems(response, searchParams){
     }
 }
 
+async function signUp(response, email, password){
+    try{
+        const result = await db.createAccount(email, password)
+        if (result.success){
+            response.writeHead(200, headerFields)
+            response.end()
+        }
+        else{
+            response.writeHead(409, headerFields)
+            response.end()
+        }
+    }
+    catch (err){
+        response.writeHead(503, headerFields)
+        response.end()
+    }
+}
+
 const app = express();
 const port = 3000;
 app.use(logger("dev"));
@@ -112,6 +130,11 @@ const MethodNotAllowedHandler = async (request, response) => {
     const options = req.query
     if (options.category !== undefined) displayItems(res, options.category.toLowerCase())
     else searchItems(res, options.searchParams.toLowerCase())
+  }).all(MethodNotAllowedHandler)
+
+  app.route('/signup').post(async (req, res) => {
+    const {email, password} = req.body
+    signUp(res, email, password)
   }).all(MethodNotAllowedHandler)
 
    app.route("*").all(async (request, response) => {
