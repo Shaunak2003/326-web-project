@@ -53,6 +53,14 @@
         <div class="update-popup-content">
             <span class="close" onclick="closeUpdatePopup()">&times;</span>
             <h2>Update Product</h2>
+            <div class="info-field">
+                <label for="product-id">Item ID:</label>
+                <span id="product-id">[Placeholder ID]</span>
+            </div>
+            <div class="info-field">
+                <label for="product-revision">Revision:</label>
+                <span id="product-revision">[Placeholder Revision]</span>
+            </div>
             <select id="update-field">
                 <option value="name">Name</option>
                 <option value="category">Category</option>
@@ -62,7 +70,8 @@
                 <option value="image">Image URL</option>
             </select>
             <input type="text" id="new-value" placeholder="Enter new value">
-            <button onclick="updateProductInfo()">Update</button>
+            <!-- <button onclick="updateProductInfo()" id="update-button">Update</button> -->
+            <button id="update-button">Update</button>
         </div>
     </div>
 

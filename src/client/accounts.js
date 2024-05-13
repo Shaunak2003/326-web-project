@@ -50,7 +50,7 @@ async function signUp(email, password){
     }
     const data = {email: email, password: password}
     console.log(data)
-    const response = await fetch(`${URL}/signup`, {
+    const response = await fetch(`${URL}/create`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ async function signUp(email, password){
 }
 
 // Function to handle login
-function login(email, password) {
+/* function login(email, password) {
     // Fetch the document from the database based on the email
     db.get(email).then(function(doc) {
         // Check if the password matches
@@ -89,10 +89,35 @@ function login(email, password) {
         // Email not found in the database
         alert('Email not found, please sign up');
     });
+} */
+
+async function login(email, password){
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    const data = {email: email, password: password}
+    console.log(data)
+    const response = await fetch(`${URL}/read?email=${email}&password=${password}`, { method: "GET" });
+    if (response.status === 400){
+        console.log("Incorrect password, retry login")
+        alert("Incorrect password, retry login")
+        window.location.href = 'login.html'
+    }
+    else if (response.status === 200){
+        console.log("Logged in successfully!")
+        alert("Logged in successfully!")
+        window.location.href = 'index.html'
+    }
+    else{
+        alert("No account found, please sign up")
+        window.location.href = 'signup.html'
+    }
 }
 
 // Event listener for login form submission
-document.querySelector('.create-account-button').addEventListener('click', function() {
+document.querySelector('.create-account-button').addEventListener('click', function(event) {
+    //event.preventDefault()
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     signUp(email, password);

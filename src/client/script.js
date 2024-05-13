@@ -6,6 +6,7 @@ const electronicsButton = document.getElementById('electronics-button')
 const fashionButton = document.getElementById('fashion-button')
 const searchButton = document.getElementById('button-input')
 const exploreButton = document.getElementById('explore-products-button')
+const updateButton = document.getElementById('update-button')
 const URL = "http://localhost:3000"
 
 
@@ -53,7 +54,7 @@ async function saveItem(){
         "condition": itemCondition,
         "image": itemImage
     }
-    console.log("script.js - ",item)
+    //console.log("script.js - ",item)
 
    /*  try{ */
         const response = await fetch(`${URL}/create`, {
@@ -91,14 +92,14 @@ async function displayAllItems(){
            throw new Error('Network response was not ok');
        }
        const results = await response.json(); // Parse JSON body
-       console.log("script.js - ", results);
+       //console.log("script.js - ", results);
        var displayCategory = document.getElementById('display-category'); 
        displayCategory.innerHTML = 'All Products'; 
        updateUI(results); // Call a function to handle the UI update
 }
 
     
-function updateUI(products) {
+/* function updateUI(products) {
    // Update display category
    var productsContainer = document.getElementById('products-container');
    productsContainer.innerHTML = '';
@@ -112,20 +113,17 @@ function updateUI(products) {
                <p>Condition: ${product.condition}</p>
                <p class="price">Price: $${product.price}</p>
                <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
-               <button class="update-button" onclick="updateProduct('${product._id}', '${product._rev}', '${product.name}')">Update</button>
+               <button class="update-button" onclick="updateProductInfo('${product._id}', '${product._rev}')">Update</button>
            </div>
        `;
        productsContainer.insertAdjacentHTML('beforeend', productHTML);
    });
-}
+} */
 
-async function updateProduct(productID, productRev, productName){
-    //to be written
-}
 
 async function buyProduct(productID, productRev, productName){
-    console.log(productID)
-    console.log(productRev)
+    //console.log(productID)
+    //console.log(productRev)
     const response = await fetch(`${URL}/delete?productID=${productID}&productRev=${productRev}`,{ method: "DELETE" });
     if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -159,6 +157,42 @@ async function searchItems(searchParams){
     updateUI(results)
 }
 
+async function updateProductInfo() {
+    const productId = document.getElementById('product-id').textContent;
+    const productRev = document.getElementById('product-revision').textContent;
+
+    var updateField = document.getElementById('update-field').value;
+    //console.log(updateField)
+    var newValue = document.getElementById('new-value').value;
+    //console.log(newValue)
+
+    if (updateField === "category" || updateField === "condition"){
+        updateField = updateField.toLowerCase()
+        newValue = newValue.toLowerCase()
+    }
+    const updateData = {id: productId, rev: productRev, field: updateField, newValue: newValue}
+    //console.log("script.js - ", updateData)
+
+    const response = await fetch(`${URL}/update`, { 
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData) 
+    })
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    else{
+        alert("Updated item!")
+        closeUpdatePopup();
+        window.location.href = 'products.html?all=true'
+    }
+
+    // After updating, close the popup
+    //closeUpdatePopup();
+}
+
 // Event listeners for category buttons
 bookButton.addEventListener('click', (event) => {
     event.preventDefault()
@@ -190,12 +224,18 @@ searchButton.addEventListener('click', (event) => {
       }
   });
 
+updateButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    //document.getElementById('search-input').value = ''
+    updateProductInfo()
+})
+
   // Function to display the update popup
 function displayUpdatePopup(productId, productRev, productName) {
     // Populate necessary fields if needed
     // For example:
-    // document.getElementById('product-id').value = productId;
-    // document.getElementById('product-name').value = productName;
+    document.getElementById('product-id').textContent = productId;
+    document.getElementById('product-revision').textContent = productRev;
 
     // Display the update popup
     document.getElementById('update-popup').style.display = 'block';
@@ -207,18 +247,6 @@ function closeUpdatePopup() {
 }
 
 // Function to update product information
-async function updateProductInfo() {
-    const productId = document.getElementById('product-id').value;
-    const productRev = document.getElementById('product-rev').value;
-    const updateField = document.getElementById('update-field').value;
-    const newValue = document.getElementById('new-value').value;
-
-    // Implement logic to update the product
-    // For example, make a fetch request to update the product on the server
-
-    // After updating, close the popup
-    closeUpdatePopup();
-}
 
 function updateUI(products) {
     // Update display category

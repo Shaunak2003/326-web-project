@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import logger from "morgan";
 import bodyParser from "body-parser";
 //import db from '../server/db.js';
@@ -28,7 +28,7 @@ async function saveItem(response, item){
 async function displayAllItems(response){
     try{
         const results = await db.loadAllItems();
-        console.log("server.js - ", results);
+        //console.log("server.js - ", results);
         response.setHeader("Content-Type", "application/json");
         response.status(200).send(JSON.stringify(results))
     }
@@ -55,7 +55,7 @@ async function buyProduct(response, productID, productRev){
 async function displayItems(response, category){
     try{
         const results = await db.loadItems(category);
-        console.log("server.js - ", results);
+        //console.log("server.js - ", results);
         response.setHeader("Content-Type", "application/json");
         response.status(200).send(JSON.stringify(results))
     }
@@ -69,7 +69,7 @@ async function displayItems(response, category){
 async function searchItems(response, searchParams){
     try{
         const results = await db.searchByName(searchParams);
-        console.log("server.js - ", results);
+        //console.log("server.js - ", results);
         response.setHeader("Content-Type", "application/json");
         response.status(200).send(JSON.stringify(results))
     }
@@ -98,6 +98,37 @@ async function signUp(response, email, password){
     }
 }
 
+async function updateProductInfo(response, id, rev, category, newValue){
+    try{
+        await db.updateProduct(id, rev, category, newValue)
+        response.writeHead(200, headerFields)
+        response.end()
+    }
+    catch (err){
+        console.log(err)
+        response.writeHead(500, headerFields)
+        response.end()
+    }
+}
+
+async function login(response, email, password){
+    try{
+        const result = await db.getAccount(email, password)
+        if (result.success){
+            response.writeHead(200, headerFields)
+            response.end()
+        }
+        else{
+            response.writeHead(400, headerFields)
+            response.end()
+        }
+    }
+    catch (err){
+        response.writeHead(500, headerFields)
+        response.end()
+    }
+}
+
 const app = express();
 const port = 3000;
 app.use(logger("dev"));
@@ -113,8 +144,12 @@ const MethodNotAllowedHandler = async (request, response) => {
   //app routes
   app.route('/create').post(async (req, res) => {
     const item = req.body
-    console.log("server.js - ", item)
-    saveItem(res, item)
+    //console.log("server.js - ", item)
+    if (item.email !== undefined){
+        const {email, password} = item
+        signUp(res, email, password)
+    }
+    else saveItem(res, item)
   }).all(MethodNotAllowedHandler)
 
   app.route('/all').get(async (req, res) => {
@@ -128,13 +163,23 @@ const MethodNotAllowedHandler = async (request, response) => {
 
   app.route('/read').get(async (req, res) => {
     const options = req.query
-    if (options.category !== undefined) displayItems(res, options.category.toLowerCase())
+    //console.log("server.js - ", options)
+    if (options.email !== undefined) login(res, options.email, options.password)
+    else if (options.category !== undefined) displayItems(res, options.category.toLowerCase())
     else searchItems(res, options.searchParams.toLowerCase())
   }).all(MethodNotAllowedHandler)
 
-  app.route('/signup').post(async (req, res) => {
+  /* app.route('/signup').post(async (req, res) => {
     const {email, password} = req.body
     signUp(res, email, password)
+  }).all(MethodNotAllowedHandler) */
+  
+  app.route('/update').put(async (req, res) => {
+    const options = req.body
+    //console.log("server.js - ", options)
+    const {id, rev, field, newValue} = options
+    //console.log("server.js id - ", options.id)
+    updateProductInfo(res, id, rev, field, newValue)
   }).all(MethodNotAllowedHandler)
 
    app.route("*").all(async (request, response) => {
