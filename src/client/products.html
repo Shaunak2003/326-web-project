@@ -47,6 +47,24 @@
     <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
     <!-- Script that handles dynamic functionality of the page, loaded after HTML content -->
     <script defer src="script.js"></script>
-    
+
+    <!-- Update Popup -->
+    <div id="update-popup" class="update-popup">
+        <div class="update-popup-content">
+            <span class="close" onclick="closeUpdatePopup()">&times;</span>
+            <h2>Update Product</h2>
+            <select id="update-field">
+                <option value="name">Name</option>
+                <option value="category">Category</option>
+                <option value="description">Description</option>
+                <option value="price">Price</option>
+                <option value="condition">Condition</option>
+                <option value="image">Image URL</option>
+            </select>
+            <input type="text" id="new-value" placeholder="Enter new value">
+            <button onclick="updateProductInfo()">Update</button>
+        </div>
+    </div>
+
 </body>
 </html>

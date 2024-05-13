@@ -189,3 +189,55 @@ searchButton.addEventListener('click', (event) => {
           displayAllItems();
       }
   });
+
+  // Function to display the update popup
+function displayUpdatePopup(productId, productRev, productName) {
+    // Populate necessary fields if needed
+    // For example:
+    // document.getElementById('product-id').value = productId;
+    // document.getElementById('product-name').value = productName;
+
+    // Display the update popup
+    document.getElementById('update-popup').style.display = 'block';
+}
+
+// Function to close the update popup
+function closeUpdatePopup() {
+    document.getElementById('update-popup').style.display = 'none';
+}
+
+// Function to update product information
+async function updateProductInfo() {
+    const productId = document.getElementById('product-id').value;
+    const productRev = document.getElementById('product-rev').value;
+    const updateField = document.getElementById('update-field').value;
+    const newValue = document.getElementById('new-value').value;
+
+    // Implement logic to update the product
+    // For example, make a fetch request to update the product on the server
+
+    // After updating, close the popup
+    closeUpdatePopup();
+}
+
+function updateUI(products) {
+    // Update display category
+    var productsContainer = document.getElementById('products-container');
+    productsContainer.innerHTML = '';
+    products.forEach((product) => {
+        var productHTML = `
+            <div class="product">
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>Category: ${product.category}</p>
+                <p>Description: ${product.description}</p>
+                <p>Condition: ${product.condition}</p>
+                <p class="price">Price: $${product.price}</p>
+                <button class="buy-button" onclick="buyProduct('${product._id}', '${product._rev}', '${product.name}')">Buy</button>
+                <button class="update-button" onclick="displayUpdatePopup('${product._id}', '${product._rev}', '${product.name}')">Update</button>
+            </div>
+        `;
+        productsContainer.insertAdjacentHTML('beforeend', productHTML);
+    });
+}
+
