@@ -176,7 +176,9 @@ app.route('/read').get(async (req, res) => { // Read route
     if (options.email !== undefined) login(res, options.email, options.password); // Check if login is requested
     else if (options.category !== undefined) displayItems(res, options.category.toLowerCase()); // Call function to display items by category
     else searchItems(res, options.searchParams.toLowerCase()); // Call function to search items by name
-}).all(MethodNotAllowedHandler);app.route('/update').put(async (req, res) => { // Update route
+}).all(MethodNotAllowedHandler);
+
+app.route('/update').put(async (req, res) => { // Update route
     const options = req.body;
     const {id, rev, field, newValue} = options;
     updateProductInfo(res, id, rev, field, newValue); // Call function to update product information
