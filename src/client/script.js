@@ -72,8 +72,17 @@ async function saveItem(){
         // If successful, display success message, clear form fields, and hide image preview
         console.log("Item added successfully");
         alert("Item added successfully");
-        clearFormFields();
-        hideImagePreview();
+        document.getElementById('itemName').value = '';
+        document.getElementById('itemCategory').value = ''
+        document.getElementById('itemDescription').value = '';
+        document.getElementById('itemPrice').value = '';
+        document.getElementById('itemCondition').value = '';
+        document.getElementById('itemImage').value = '';
+
+        // Hide the image preview
+        var preview = document.getElementById('imagePreview');
+        preview.src = '#'; // Reset the image source
+        preview.style.display = 'none';
     } else {
         // If unsuccessful, throw an error
         throw new Error('Failed to save item');
