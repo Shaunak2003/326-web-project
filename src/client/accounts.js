@@ -1,55 +1,25 @@
-/* const loginButton = document.getElementById('login')
-const signUpButton = document.getElementById('createAccount') */
-//var db = new PouchDB('accounts')
-const URL = "http://localhost:3000"
+// Define the base URL for API requests
+const URL = "http://localhost:3000";
 
+// Function to validate the format of an email address using regular expression
 function validateEmail(email) {
     // Regular expression for validating email format
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
 
-// Function to handle sign up
-/* function signUp(email, password) {
-    // Check if email is valid
-    if (!validateEmail(email)) {
-        alert('Please enter a valid email address');
-        return;
-    }
-
-    // Check if email already exists
-    db.get(email).then(function(doc) {
-        // Email already exists, redirect to login.html
-        alert('Email already exists, please login');
-        window.location.href = 'login.html';
-    }).catch(function(err) {
-        if (err.status === 404) {
-            // Email doesn't exist, create account
-            db.put({
-                _id: email,
-                password: password
-            }).then(function(response) {
-                // Account created successfully, redirect to login.html
-                alert('Account created successfully');
-                window.location.href = 'login.html';
-            }).catch(function(err) {
-                console.log(err);
-            });
-        } else {
-            console.log(err);
-        }
-    });
-} */
-
-
-
+// Function to sign up a new user
 async function signUp(email, password){
+    // Validate email format
     if (!validateEmail(email)) {
+        // If email is not valid, display an alert message
         alert('Please enter a valid email address');
         return;
     }
-    const data = {email: email, password: password}
-    console.log(data)
+    // Prepare data for POST request
+    const data = {email: email, password: password};
+    console.log(data);
+    // Send POST request to create a new account
     const response = await fetch(`${URL}/create`, {
         method: "POST",
         headers: {
@@ -57,89 +27,74 @@ async function signUp(email, password){
         },
         body: JSON.stringify(data)
     });
+    // Handle response based on status code
     if (response.status === 409){
-        console.log("Account already exists, please sign in")
-        alert("Account already exists, please sign in")
-        window.location.href = 'login.html'
+        // If account already exists, display an alert and redirect to login page
+        console.log("Account already exists, please sign in");
+        alert("Account already exists, please sign in");
+        window.location.href = 'login.html';
     }
     else if (response.status === 200){
-        console.log("Account created successfully!")
-        alert("Account created successfully")
-        window.location.href = 'login.html'
+        // If account created successfully, display a success message and redirect to login page
+        console.log("Account created successfully!");
+        alert("Account created successfully");
+        window.location.href = 'login.html';
     }
     else{
+        // If any other status code is received, throw an error
         throw new Error('Failed to save item');
     }
 }
 
-// Function to handle login
-/* function login(email, password) {
-    // Fetch the document from the database based on the email
-    db.get(email).then(function(doc) {
-        // Check if the password matches
-        if (doc.password === password) {
-            // Password matches, redirect to home page or wherever you want
-            alert('Login successful');
-            window.location.href = 'index.html'; // Change to the desired destination
-        } else {
-            // Password doesn't match, show error message
-            alert('Incorrect password');
-        }
-    }).catch(function(err) {
-        // Email not found in the database
-        alert('Email not found, please sign up');
-    });
-} */
-
+// Function to log in an existing user
 async function login(email, password){
+    // Validate email format
     if (!validateEmail(email)) {
+        // If email is not valid, display an alert message
         alert('Please enter a valid email address');
         return;
     }
-    const data = {email: email, password: password}
-    console.log(data)
+    // Prepare data for GET request
+    const data = {email: email, password: password};
+    console.log(data);
+    // Send GET request to check login credentials
     const response = await fetch(`${URL}/read?email=${email}&password=${password}`, { method: "GET" });
+    // Handle response based on status code
     if (response.status === 400){
-        console.log("Incorrect password, retry login")
-        alert("Incorrect password, retry login")
-        window.location.href = 'login.html'
+        // If password is incorrect, display an alert message and redirect to login page
+        console.log("Incorrect password, retry login");
+        alert("Incorrect password, retry login");
+        window.location.href = 'login.html';
     }
     else if (response.status === 200){
-        console.log("Logged in successfully!")
-        alert("Logged in successfully!")
-        window.location.href = 'index.html'
+        // If login successful, display a success message and redirect to index page
+        console.log("Logged in successfully!");
+        alert("Logged in successfully!");
+        window.location.href = 'index.html';
     }
     else{
-        alert("No account found, please sign up")
-        window.location.href = 'signup.html'
+        // If no account found, display an alert message and redirect to signup page
+        alert("No account found, please sign up");
+        window.location.href = 'signup.html';
     }
 }
 
-// Event listener for login form submission
+// Event listener for sign-up form submission
 document.querySelector('.create-account-button').addEventListener('click', function(event) {
-    //event.preventDefault()
+    // Retrieve email and password from input fields
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
+    // Call sign-up function with retrieved data
     signUp(email, password);
 });
 
+// Event listener for login form submission
 document.querySelector('.login-button').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission
+    // Prevent default form submission behavior
+    event.preventDefault();
+    // Retrieve email and password from input fields
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
+    // Call login function with retrieved data
     login(email, password);
 });
-
-/* loginButton.addEventListener('click', (event) => {
-    event.preventDefault()
-    var email = document.getElementById('email').value
-    var password = document.getElementById('password').value
-    login(email, password)
-})
-
-signUpButton.addEventListener('click', (event) => {
-    event.preventDefault()
-    var email = document.getElementById('email').value
-    var password = document.getElementById('password').value
-    signUp(email, password)
-}) */
